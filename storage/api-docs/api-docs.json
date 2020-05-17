@@ -1,0 +1,489 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "SOUND INSIGHTS",
+        "description": "RESTFUL API for sound insights web application",
+        "contact": {
+            "name": "Ibrahimolayinkaa@gmail.com",
+            "email": "Ibrahimolayinkaa@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:12000",
+            "description": "host server"
+        },
+        {
+            "url": "http://localhost:8000",
+            "description": "Localhost on port 8000"
+        }
+    ],
+    "paths": {
+        "/api/aboutus": {
+            "get": {
+                "tags": [
+                    "about controller"
+                ],
+                "summary": "GET about-us records",
+                "description": "This endpoints query out all about-us records.",
+                "operationId": "App\\Http\\Controllers\\AboutUsController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successfully Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "about controller"
+                ],
+                "summary": "Create about-us record",
+                "description": "This endpoints create a new  about-us record.",
+                "operationId": "createAboutUs",
+                "requestBody": {
+                    "description": "Created About-us object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AboutUs"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AboutUs"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/aboutus/{id}": {
+            "get": {
+                "tags": [
+                    "about controller"
+                ],
+                "summary": "Get mp3 record",
+                "description": "Returns single about-us information",
+                "operationId": "getMp3ById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "about controller"
+                ],
+                "summary": "Update about-us record",
+                "description": "This endpoints create a new  about-us record.",
+                "operationId": "updateAboutUs",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Created About-us object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AboutUs"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AboutUs"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "about controller"
+                ],
+                "summary": "Delete existing about-us record",
+                "description": "Deletes a record and returns no content",
+                "operationId": "deleteProject",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/sendmail": {
+            "post": {
+                "tags": [
+                    "email controller"
+                ],
+                "summary": "send email",
+                "description": "This endpoints send an email",
+                "operationId": "sendEmail",
+                "requestBody": {
+                    "description": "Created email object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Email"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Email"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/mp3": {
+            "get": {
+                "tags": [
+                    "mp3 controller"
+                ],
+                "summary": "GET mp3 records",
+                "description": "This endpoints query out all mp3 records.",
+                "operationId": "App\\Http\\Controllers\\Mp3Controller::index",
+                "responses": {
+                    "200": {
+                        "description": "Successfully Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "mp3 controller"
+                ],
+                "summary": "Create mp3 record",
+                "description": "This endpoints create a new  mp3 record.",
+                "operationId": "createMp3",
+                "requestBody": {
+                    "description": "Created mp3 object",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Mp3"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Mp3"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/mp3/{id}": {
+            "get": {
+                "tags": [
+                    "mp3 controller"
+                ],
+                "summary": "Get mp3 record",
+                "description": "Returns single mp3  information",
+                "operationId": "getMp3ById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "mp3 controller"
+                ],
+                "summary": "Delete existing mp3 record",
+                "description": "Deletes a record and returns no content",
+                "operationId": "deleteProject",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/mp3/download/{id}": {
+            "get": {
+                "tags": [
+                    "mp3 controller"
+                ],
+                "summary": "download mp3 record",
+                "description": "Download mp3  record",
+                "operationId": "downloadMp3ById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AboutUs": {
+                "title": "AboutUs",
+                "description": "AboutUs Model",
+                "properties": {
+                    "title": {
+                        "title": "title",
+                        "description": "About title",
+                        "type": "string"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "About description",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Email": {
+                "title": "Email",
+                "description": "Email Model",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "customer name",
+                        "type": "string"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "Customer email",
+                        "type": "string"
+                    },
+                    "subject": {
+                        "title": "subject",
+                        "description": "Customer subject",
+                        "type": "string"
+                    },
+                    "body": {
+                        "title": "body",
+                        "description": "customer message",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Mp3": {
+                "title": "Mp3",
+                "description": "Mp3 model",
+                "properties": {
+                    "songGenre": {
+                        "title": "genre",
+                        "description": "Song Genre",
+                        "type": "string"
+                    },
+                    "songName": {
+                        "title": "name",
+                        "description": "Song Name",
+                        "type": "file",
+                        "format": "binary"
+                    },
+                    "songThumbnail": {
+                        "title": "thumbnail",
+                        "description": "Song Thumbnail",
+                        "type": "file",
+                        "format": "binary"
+                    },
+                    "artistName": {
+                        "title": "Artist name",
+                        "description": "Artist Name",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Sound Insights",
+            "description": "This is sound insights LARAVEL RESTFUL API"
+        }
+    ]
+}
