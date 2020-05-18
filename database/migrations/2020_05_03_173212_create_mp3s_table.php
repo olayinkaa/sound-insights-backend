@@ -16,7 +16,7 @@ class CreateMp3sTable extends Migration
         Schema::create('mp3s', function (Blueprint $table) {
             $table->id();
             $table->string('song_title')->nullable();
-            $table->string('song_name')->unique();
+            $table->string('song_name')->nullable();
             $table->string('artist_name')->nullable();
             $table->string('song_thumbnail')->nullable();
             $table->string('song_genre')->nullable();
