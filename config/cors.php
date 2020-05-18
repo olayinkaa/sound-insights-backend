@@ -19,7 +19,12 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:12000','http://localhost:3000','https://soundinsights.herokuapp.com'],
+    'allowed_origins' => [
+                            'http://localhost:12000',
+                            'http://localhost:3000',
+                            'https://soundinsights.netlify.app',
+                            'https://soundinsights.herokuapp.com'
+                        ],
 
     'allowed_origins_patterns' => [],
 
