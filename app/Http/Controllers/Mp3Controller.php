@@ -112,7 +112,7 @@ class Mp3Controller extends BaseController
 
         }
 
-        if
+        
         
         $mp3->song_thumbnail = $file_title;
         $mp3->song_extension = $song_extension;
