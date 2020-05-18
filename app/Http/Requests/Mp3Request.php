@@ -25,8 +25,7 @@ class Mp3Request extends FormRequest
     {
         $rules = [
             //
-            // 'songName'=>'required|mimes:application/octet-stream,audio/mpeg,mpga,mp3,wav|max:10048',
-            'songName'=>'required|max:10048',
+            'songName'=>'required|mimes:application/octet-stream,audio/mpeg,mpga,mp3,wav|max:4000',
             'artistName'=>'required',
             'songThumbnail'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'songGenre'=>'required',
