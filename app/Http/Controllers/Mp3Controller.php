@@ -6,6 +6,7 @@ use App\Mp3;
 use Illuminate\Http\Request;
 use App\Http\Requests\Mp3Request;
 use App\Http\Resources\Mp3Resource;
+use Illuminate\Support\Facades\Storage;
 
 class Mp3Controller extends BaseController
 {
@@ -112,17 +113,26 @@ class Mp3Controller extends BaseController
 
         }
 
-        
-        $mp3->song_thumbnail = $file_title;
+
+        // $image_path = Storage::disk('s3')->put('images', file_get_contents($image));
+        $image_path = $image->store('soundinsights_images', 's3'); 
+        $song_path= $song->store('soundinsights_mp3','s3');      
+        Storage::disk('s3')->setVisibility($image_path,'public');
+        Storage::disk('s3')->setVisibility($song_path,'public');
+        $mp3->song_thumbnail = Storage::disk('s3')->url($image_path);
         $mp3->song_extension = $song_extension;
         $mp3->song_size = $song_size;
+        // $mp3->song_thumbnail = $file_title;
         // $song_title goes to DB and should be called to display on front-end
-        $mp3->song_title = $song_title;
+        // $mp3->song_title = $song_title;
+        $mp3->song_title = Storage::disk('s3')->url($song_path);
         $mp3->song_name = $only_name;
         $mp3->save(); 
+
+
         // upload file to public folder if request is successful
-        $song -> move('soundinsight/mp3/' , $song_title);
-        $image -> move('soundinsight/img/' , $file_title);
+        // $song -> move('soundinsight/mp3/' , $song_title);
+        // $image -> move('soundinsight/img/' , $file_title);
 
 
         return $this->sendResponse($mp3,"Mp3 successfully added");
