@@ -122,8 +122,8 @@ class Mp3Controller extends BaseController
         $mp3->song_thumbnail = Storage::disk('s3')->url($image_path);
         $mp3->song_extension = $song_extension;
         $mp3->song_size = $song_size;
-        $mp3->tempname_song = $song_path;
-        $mp3->tempname_image = $image_path;
+        $mp3->tempname_song = basename($song_path);
+        $mp3->tempname_image = basename($image_path);
         // $mp3->song_thumbnail = $file_title;
         // $song_title goes to DB and should be called to display on front-end
         // $mp3->song_title = $song_title;
@@ -256,12 +256,12 @@ class Mp3Controller extends BaseController
             // $song= public_path('soundinsight/mp3/').$songTitle;
             // $thumbnail = public_path('soundinsight/img/').$songThumbnail;
 
-            Storage::disk('s3')->delete($mp3->tempname_song);
-            Storage::disk('s3')->delete($mp3->tempname_image);
-
+            Storage::disk('s3')->delete('soundinsights_mp3/'.$mp3->tempname_song);
+            Storage::disk('s3')->delete('soundinsights_images/'.$mp3->tempname_image);
 
             $mp3->delete();
             return $this->sendResponse("Record removed");
+
     }
 
 
@@ -303,11 +303,19 @@ class Mp3Controller extends BaseController
 
     public function downloadMp3($id)
     {
+        // application/octet-stream
+
         $mp3 = Mp3::findOrFail($id);
+        $name=$mp3->song_name.'.'.$mp3->song_extension;
+        $headers = [
 
-        $downloadFile = public_path('soundinsight/mp3/').$mp3->song_title;
+            'content-type'=>'audio/mpeg',
+            'Content-Disposition' => ' attachment; filename="'.$name.'"',
 
-        return response()->download($downloadFile,$mp3->song_name.".".$mp3->song_extension);
+
+        ];
+
+        return Storage::disk('s3')->download('soundinsights_mp3/'.$mp3->tempname_song, $name, $headers);
 
 
     }
