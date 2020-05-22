@@ -16,7 +16,13 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        // $downloadable = Mp3::where('downloadable','0')->get()->count();
+        $downloadable = Mp3::where('downloadable','1')->get()->count();
+        $notdownloadable = Mp3::where('downloadable','0')->get()->count();
+
+        return response()->json([
+            'total_downloadable_mp3'=>$downloadable,
+            'total_not_downloadable_mp3'=>$notdownloadable
+        ]);
     }
 
     /**
