@@ -122,6 +122,8 @@ class Mp3Controller extends BaseController
         $mp3->song_thumbnail = Storage::disk('s3')->url($image_path);
         $mp3->song_extension = $song_extension;
         $mp3->song_size = $song_size;
+        $mp3->tempname_song = $song_path;
+        $mp3->tempname_image = $image_path;
         // $mp3->song_thumbnail = $file_title;
         // $song_title goes to DB and should be called to display on front-end
         // $mp3->song_title = $song_title;
@@ -251,18 +253,12 @@ class Mp3Controller extends BaseController
                 return $this->errorResponse("The mp3 does not exist",404);
             }
 
-            $songTitle = $mp3->song_title;
-            $songThumbnail = $mp3->song_thumbnail;
-            $song= public_path('soundinsight/mp3/').$songTitle;
-            $thumbnail = public_path('soundinsight/img/').$songThumbnail;
+            // $song= public_path('soundinsight/mp3/').$songTitle;
+            // $thumbnail = public_path('soundinsight/img/').$songThumbnail;
 
-            if(file_exists($song)){
-                @unlink($song);
-            }
-            
-            if(file_exists($thumbnail)){
-                @unlink($thumbnail);
-            }
+            Storage::disk('s3')->delete($mp3->tempname_song);
+            Storage::disk('s3')->delete($mp3->tempname_image);
+
 
             $mp3->delete();
             return $this->sendResponse("Record removed");

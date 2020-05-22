@@ -22,6 +22,8 @@ class CreateMp3sTable extends Migration
             $table->string('song_genre')->nullable();
             $table->string('song_size')->nullable();
             $table->string('song_extension')->nullable();
+            $table->string('tempname_song')->nullable();
+            $table->string('tempname_image')->nullable();
             $table->enum('downloadable',['0','1']);
             $table->timestamps();
         });
