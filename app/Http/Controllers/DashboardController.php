@@ -18,8 +18,11 @@ class DashboardController extends Controller
         //
         $downloadable = Mp3::where('downloadable','1')->get()->count();
         $notdownloadable = Mp3::where('downloadable','0')->get()->count();
+        $mp3 = Mp3::all()->count();
 
         return response()->json([
+            'status'=>200,
+            'success'=>true,
             'total_downloadable_mp3'=>$downloadable,
             'total_not_downloadable_mp3'=>$notdownloadable
         ]);

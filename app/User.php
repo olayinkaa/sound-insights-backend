@@ -5,16 +5,18 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens,Notifiable;
 
 
     const VERIFIED_USER='1';
     const UNVERIFIED_USER='0';
 
     const ADMIN_USER = 'admin';
+    const EDITOR_USER = 'editor';
     const REGULAR_USER = 'user';
 
     protected $table ="users";

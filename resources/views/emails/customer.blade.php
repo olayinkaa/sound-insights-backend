@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,4 +11,18 @@
     <p>{{$details['body']}}</p>
     <p>From: {{$details['email']}}</p>
 </body>
-</html>
+</html> -->
+
+@component('mail::message')
+# {{$details['subject']}}
+
+{{$details['body']}}
+
+@component('mail::button', ['url' => config('app.url')])
+Goto site
+@endcomponent
+
+From: {{$details['name']}}<br>
+Thanks,<br>
+{{ config('app.name') }}
+@endcomponent

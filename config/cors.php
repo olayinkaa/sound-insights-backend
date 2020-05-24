@@ -20,7 +20,7 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-                            'http://localhost:12000',
+                            'http://localhost:4500',
                             'http://localhost:3000',
                             'https://soundinsights.netlify.app',
                             'https://soundinsights.herokuapp.com'

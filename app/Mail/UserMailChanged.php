@@ -2,26 +2,28 @@
 
 namespace App\Mail;
 
+use App\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CustomerEnquiry extends Mailable
+class UserMailChanged extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $details;
+    public $user;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct(User $user)
     {
         //
-        $this->details = $details;
+        $this->user  = $user;
+
     }
 
     /**
@@ -31,7 +33,7 @@ class CustomerEnquiry extends Mailable
      */
     public function build()
     {
-        return $this->subject('soundinsights.com')
-                ->markdown('emails.customer');
+        // return $this->view('emails.confirm');
+        return $this->text('emails.confirm')->subject('Please confirm your email address');
     }
 }

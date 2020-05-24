@@ -114,28 +114,20 @@ class Mp3Controller extends BaseController
         }
 
 
-        // $image_path = Storage::disk('s3')->put('images', file_get_contents($image));
-        $image_path = $image->store('soundinsights_images', 's3'); 
+        $image_path = $image->store('soundinsights_images', 's3');
         $song_path= $song->store('soundinsights_mp3','s3');      
         Storage::disk('s3')->setVisibility($image_path,'public');
         Storage::disk('s3')->setVisibility($song_path,'public');
         $mp3->song_thumbnail = Storage::disk('s3')->url($image_path);
+        
         $mp3->song_extension = $song_extension;
         $mp3->song_size = $song_size;
         $mp3->tempname_song = basename($song_path);
         $mp3->tempname_image = basename($image_path);
-        // $mp3->song_thumbnail = $file_title;
-        // $song_title goes to DB and should be called to display on front-end
-        // $mp3->song_title = $song_title;
+       
         $mp3->song_title = Storage::disk('s3')->url($song_path);
         $mp3->song_name = $only_name;
         $mp3->save(); 
-
-
-        // upload file to public folder if request is successful
-        // $song -> move('soundinsight/mp3/' , $song_title);
-        // $image -> move('soundinsight/img/' , $file_title);
-
 
         return $this->sendResponse($mp3,"Mp3 successfully added");
 
@@ -252,9 +244,6 @@ class Mp3Controller extends BaseController
             {
                 return $this->errorResponse("The mp3 does not exist",404);
             }
-
-            // $song= public_path('soundinsight/mp3/').$songTitle;
-            // $thumbnail = public_path('soundinsight/img/').$songThumbnail;
 
             Storage::disk('s3')->delete('soundinsights_mp3/'.$mp3->tempname_song);
             Storage::disk('s3')->delete('soundinsights_images/'.$mp3->tempname_image);

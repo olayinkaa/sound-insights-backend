@@ -25,4 +25,5 @@ Route::get('mp3/download/{id}','Mp3Controller@downloadMp3')->name('download');
 Route::apiResource('contactus','ContactUsController');
 Route::apiResource('aboutus','AboutUsController');
 Route::name('verify')->get('user/verify/{token}','UserController@verify');
+Route::name('resend')->get('user/{user}/resend','UserController@resend');
 Route::name('send-email')->post('sendmail','EmailController@customerEmail');
