@@ -27,6 +27,17 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+        Passport::tokensExpireIn(now()->addDays(1));
+        Passport::refreshTokensExpireIn(now()->addDays(2));
         //
+
+        Passport::tokensCan([
+            'create-mp3' => 'Create new mp3 record',
+            'update-mp3' => 'Edit existing mp3 record',
+            'delete-mp3' => 'remove existing mp3 record',
+            'create-aboutus'=>'Create new about us content',
+            'update-aboutus'=>'Edit exsiting about us content',
+            'delete-aboutus'=>'Delete existing about us content'
+        ]);
     }
 }

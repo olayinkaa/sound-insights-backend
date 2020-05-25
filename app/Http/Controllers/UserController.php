@@ -6,6 +6,7 @@ use App\User;
 use App\Mail\UserCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends BaseController
 {
@@ -66,13 +67,15 @@ class UserController extends BaseController
 
     public function verify($token)
     {
+
         $user = User::where('verification_token',$token)->firstOrFail();
         $user->verified = User::VERIFIED_USER;
         $user->verification_token = null;
-
         $user->save();
 
-        return $this->showMessage("This user has been verified successfully");
+        // return $this->showMessage("This user has been verified successfully");
+        $url=config('custom.redirect');
+        return Redirect::to($url);
     }
 
     public function resend(User $user)

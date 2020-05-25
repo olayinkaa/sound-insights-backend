@@ -2,10 +2,11 @@
 
 namespace App;
 
+use Illuminate\Support\Str;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -32,7 +33,7 @@ class User extends Authenticatable
         'password',
         'verified',
         'verification_token',
-        'admin'
+        'status'
 
     ];
 
@@ -86,6 +87,6 @@ class User extends Authenticatable
 
     public static function generateVerificationCode()
     {
-        return Str::random(10);
+        return Str::random(20);
     }
 }
