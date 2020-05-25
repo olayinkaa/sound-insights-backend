@@ -26,7 +26,7 @@ Route::get('mp3','Mp3Controller@index');
 Route::post('mp3','Mp3Controller@store')->middleware('scope:create-mp3');
 Route::get('mp3/{mp3}','Mp3Controller@show')->middleware('scope:update-mp3');
 Route::put('mp3/{mp3}','Mp3Controller@update')->middleware('scope:update-mp3');
-Route::delete('mp3/{mp3}','Mp3Controller@delete')->middleware('scope:delete-mp3');;
+Route::delete('mp3/{mp3}','Mp3Controller@delete')->middleware('scope:delete-mp3');
 
 Route::apiResource('dashboard','DashboardController',['only'=>['index']]);
 Route::apiResource('contactus','ContactUsController');
