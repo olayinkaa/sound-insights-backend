@@ -34,8 +34,6 @@ class AboutUsController extends BaseController
         //
         $aboutus = AboutUs::all();
 
-
-
         if(!$aboutus)
         {
             return $this->errorResponse("The about us content does not exist",404);

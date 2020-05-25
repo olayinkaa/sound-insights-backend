@@ -33,8 +33,8 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  *  @OA\Server(
-*      url="http://localhost:8000",
- *      description="Localhost on port 8000"
+*      url="http://localhost:5000",
+ *      description="Localhost on port 5000"
  * )
  * 
  *
