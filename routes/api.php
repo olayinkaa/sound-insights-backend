@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::apiResource('mp3','Mp3Controller');
+
+
 Route::apiResource('dashboard','DashboardController',['only'=>['index']]);
 Route::get('mp3/download/{id}','Mp3Controller@downloadMp3')->name('download');
 Route::apiResource('contactus','ContactUsController');
