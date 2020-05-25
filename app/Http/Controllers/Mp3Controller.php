@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Storage;
 class Mp3Controller extends BaseController
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except(['index']);
+        // $this->middleware('scopes:create-mp3,update-mp3')->only(['store','update']);
+
+    }
+
     
     /**
      * Display a listing of the resource.
@@ -19,8 +26,6 @@ class Mp3Controller extends BaseController
      */
 
       //
-
-    
 /**
  * @OA\Get(
  *     path="/api/mp3",
