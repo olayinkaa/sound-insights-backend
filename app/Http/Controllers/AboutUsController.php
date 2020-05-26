@@ -9,6 +9,12 @@ use App\Http\Resources\AboutUsResource;
 
 class AboutUsController extends BaseController
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except(['index','store']);
+    }
+
     /**
      * Display a listing of the resource.
      *
