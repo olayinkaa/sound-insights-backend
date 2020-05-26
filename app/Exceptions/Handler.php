@@ -56,32 +56,34 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if($request->expectsJson() || $request->isJson())
-        {
-            if($exception instanceof ModelNotFoundException)
-            {
-              $modelName = class_basename($exception->getModel());
-              return $this->errorResponse("{$modelName} Not Found",400);
-            }
-            if($exception instanceof NotFoundHttpException)
-            {
-                return $this->errorResponse("Resources not found",404);
-            }
-            if($exception instanceof MethodNotAllowedHttpException)
-            {
-                return $this->errorResponse($exception->getMessage(),Response::HTTP_METHOD_NOT_ALLOWED);
-            }
-            if($exception instanceof HttpException)
-            {
-                return $this->errorResponse($exception->getMessage(),$exception->getStatusCode());
-            }
+        return parent::render($request, $exception);
+
+        // if($request->expectsJson() || $request->isJson())
+        // {
+        //     if($exception instanceof ModelNotFoundException)
+        //     {
+        //       $modelName = class_basename($exception->getModel());
+        //       return $this->errorResponse("{$modelName} Not Found",400);
+        //     }
+        //     if($exception instanceof NotFoundHttpException)
+        //     {
+        //         return $this->errorResponse("Resources not found",404);
+        //     }
+        //     if($exception instanceof MethodNotAllowedHttpException)
+        //     {
+        //         return $this->errorResponse($exception->getMessage(),Response::HTTP_METHOD_NOT_ALLOWED);
+        //     }
+        //     if($exception instanceof HttpException)
+        //     {
+        //         return $this->errorResponse($exception->getMessage(),$exception->getStatusCode());
+        //     }
     
-            if(config('app.debug'))
-            {
-                return parent::render($request, $exception);
+        //     if(config('app.debug'))
+        //     {
+        //         return parent::render($request, $exception);
     
-            }
-        }
+        //     }
+        // }
       
     }
 }

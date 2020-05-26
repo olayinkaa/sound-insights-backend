@@ -40,7 +40,7 @@ class AboutUsController extends BaseController
         }
 
 
-        return $this->sendResponse($aboutus);
+        return $this->sendResponse(AboutUsResource::collection($aboutus));
             
     }
 

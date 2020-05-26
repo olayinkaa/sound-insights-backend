@@ -87,10 +87,6 @@ class User extends Authenticatable
 
     public static function generateVerificationCode()
     {
-<<<<<<< HEAD
-        return Str::random(30);
-=======
         return Str::random(20);
->>>>>>> cb5e0d20bbd4070c639530be6fcb8b35ec6986ab
     }
 }
