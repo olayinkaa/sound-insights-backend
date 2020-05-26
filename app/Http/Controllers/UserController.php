@@ -68,13 +68,14 @@ class UserController extends BaseController
     public function verify($token)
     {
 
+        $url=config('custom.redirect');
+
         $user = User::where('verification_token',$token)->firstOrFail();
         $user->verified = User::VERIFIED_USER;
         $user->verification_token = null;
         $user->save();
 
         // return $this->showMessage("This user has been verified successfully");
-        $url=config('custom.redirect');
         return Redirect::to($url);
     }
 

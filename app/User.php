@@ -32,7 +32,7 @@ class User extends Authenticatable
         'password',
         'verified',
         'verification_token',
-        'admin'
+        'status'
 
     ];
 
@@ -86,6 +86,6 @@ class User extends Authenticatable
 
     public static function generateVerificationCode()
     {
-        return Str::random(10);
+        return Str::random(30);
     }
 }
