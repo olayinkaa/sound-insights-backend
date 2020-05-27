@@ -68,7 +68,6 @@ class AuthController extends BaseController
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user = Auth::user(); 
 
-
             if($user->verified=="0")
             {
                 return $this->errorResponse("Please verified your account to continue",401);
@@ -105,7 +104,7 @@ class AuthController extends BaseController
         } 
         else
         { 
-            return $this->sendError('Unauthorised.', ['error'=>'Invalid email and password']);
+            return $this->sendError('Unauthorised.', ['error'=>'Invalid email or password']);
         } 
     }
 
