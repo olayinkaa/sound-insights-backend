@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('verified')->default(User::UNVERIFIED_USER);
             $table->string('verification_token')->nullable();
-            $table->enum('status',['admin','editor','user'])->default(User::EDITOR_USER);
+            $table->enum('status',['admin','editor','user'])->default(User::ADMIN_USER);
             $table->rememberToken();
             $table->timestamps();
         });

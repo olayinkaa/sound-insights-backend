@@ -41,7 +41,7 @@ trait ApiResponser
      }
  
      
-     public function sendError($error, $errorMessages = [], $code = 404)
+     public function sendError($error, $errorMessages = [], $code = 400)
      {
          $response = [
              'success' => false,
@@ -50,14 +50,14 @@ trait ApiResponser
  
  
          if(!empty($errorMessages)){
-             $response['data'] = $errorMessages;
+             $response['errors'] = $errorMessages;
          }
  
  
          return response()->json($response, $code);
      }
 
-	protected function errorResponse($message,$code)
+	protected function errorResponse($message,$code=401)
 	{
 		return response()->json([
 

@@ -325,8 +325,6 @@ class Mp3Controller extends BaseController
 
             'content-type'=>'audio/mpeg',
             'Content-Disposition' => ' attachment; filename="'.$name.'"',
-
-
         ];
 
         return Storage::disk('s3')->download('soundinsights_mp3/'.$mp3->tempname_song, $name, $headers);

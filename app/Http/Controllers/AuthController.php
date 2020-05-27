@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends BaseController
@@ -14,14 +13,15 @@ class AuthController extends BaseController
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:users',
+            'name' => 'required',
             'email' => 'required|email|unique:users',
             'password'=>'required|min:6|confirmed'
         ]);
    
         if($validator->fails()){
 
-            return $this->sendError('Validation Error.', $validator->errors());       
+            return $this->sendError('Validation Error.', $validator->errors()); 
+      
         }
    
         $input = $request->all();
@@ -30,36 +30,36 @@ class AuthController extends BaseController
         $input['verification_token']= User::generateVerificationCode();
         $user = User::create($input);
 
-        $newUser = User::findOrFail($user->id);
+        // $newUser = User::findOrFail($user->id);
 
 
-        if($newUser->status=="admin")
-        {
-            $success['access_token'] =  $user->createToken('soundinsights',['*'])-> accessToken; 
-            $success['name'] =  $user->name;
-            $success['email']= $user->email;
-        }
-        else if($newUser->status==="editor")
-        {
-            $success['access_token'] =  $user->createToken('soundinsights',[
-                'create-mp3',
-                'update-mp3',
-                'create-aboutus',
-                'update-aboutus'
-            ])-> accessToken; 
-            $success['name'] =  $user->name; 
-            $success['email']= $user->email;
-        }
-        else
-        {
-            $success['access_token'] =  $user->createToken('soundinsights')-> accessToken; 
-            $success['name'] =  $user->name; 
-            $success['email']= $user->email;
-            $success['token_type']= "Bearer";
+        // if($newUser->status=="admin")
+        // {
+        //     $success['access_token'] =  $user->createToken('soundinsights',['*'])-> accessToken; 
+        //     $success['name'] =  $user->name;
+        //     $success['email']= $user->email;
+        // }
+        // else if($newUser->status==="editor")
+        // {
+        //     $success['access_token'] =  $user->createToken('soundinsights',[
+        //         'create-mp3',
+        //         'update-mp3',
+        //         'create-aboutus',
+        //         'update-aboutus'
+        //     ])-> accessToken; 
+        //     $success['name'] =  $user->name; 
+        //     $success['email']= $user->email;
+        // }
+        // else
+        // {
+        //     $success['access_token'] =  $user->createToken('soundinsights')-> accessToken; 
+        //     $success['name'] =  $user->name; 
+        //     $success['email']= $user->email;
+        //     $success['token_type']= "Bearer";
 
-        }
+        // }
 
-        return $this->sendResponse($success, 'User register successfully.Email sent to your account for verification');
+        return $this->sendResponse($user, "Successful Registration.Email sent to {$user->email} for verification");
     }
 
 
@@ -68,9 +68,10 @@ class AuthController extends BaseController
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user = Auth::user(); 
 
-            if($user->verified==='0')
+
+            if($user->verified=="0")
             {
-                $this->errorResponse("Please verified your account to continue");
+                return $this->errorResponse("Please verified your account to continue",401);
             }
 
             if($user->status==="admin")
@@ -104,7 +105,7 @@ class AuthController extends BaseController
         } 
         else
         { 
-            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+            return $this->sendError('Unauthorised.', ['error'=>'Invalid email and password']);
         } 
     }
 

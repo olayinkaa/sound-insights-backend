@@ -12,7 +12,7 @@ class AboutUsController extends BaseController
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['index','store']);
+        $this->middleware('auth:api')->except(['index']);
     }
     /**
      * Display a listing of the resource.
@@ -134,9 +134,10 @@ class AboutUsController extends BaseController
      *      )
      * )
      */
-    public function show(AboutUs $aboutus)
+    public function show($id)
     {
         //
+        $aboutus = AboutUs::findOrFail($id);
         return $this->sendResponse(new AboutUsResource($aboutus));
 
     }
@@ -246,9 +247,10 @@ class AboutUsController extends BaseController
      *      )
      * )
      */
-    public function destroy(AboutUs $aboutus)
+    public function destroy($id)
     {
         //
+        $aboutus = AboutUs::findOrFail($id);
         $aboutus->delete();
         return response()->json([
             "success"=>true,
