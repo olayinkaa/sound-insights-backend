@@ -76,12 +76,12 @@ class AuthController extends BaseController
             if($user->status==="admin")
             {
                 $success['access_token'] =  $user->createToken('soundinsights',[
-                    'create-mp3' => 'Create new mp3 record',
-                    'update-mp3' => 'Edit existing mp3 record',
-                    'delete-mp3' => 'remove existing mp3 record',
-                    'create-aboutus'=>'Create new about us content',
-                    'update-aboutus'=>'Edit exsiting about us content',
-                    'delete-aboutus'=>'Delete existing about us content'
+                    'create-mp3',
+                    'update-mp3',
+                    'delete-mp3',
+                    'create-aboutus',
+                    'update-aboutus',
+                    'delete-aboutus'
                 ])-> accessToken; 
                 $success['name'] =  $user->name;
                 $success['email'] =  $user->email;
