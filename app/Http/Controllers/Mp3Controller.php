@@ -14,7 +14,7 @@ class Mp3Controller extends BaseController
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['index']);
+        $this->middleware('auth:api')->except(['index','downloadMp3']);
         // $this->middleware('scopes:create-mp3,update-mp3')->only(['store','update']);
 
     }
