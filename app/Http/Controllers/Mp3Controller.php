@@ -41,7 +41,7 @@ class Mp3Controller extends BaseController
     {
         //
         // $mp3 = Mp3::latest()->get();
-        $mp3 = Cache::remember('mp3',3600,function(){
+        $mp3 = Cache::remember('mp3',30,function(){
             return Mp3::latest()->get();
         });
 
