@@ -261,14 +261,15 @@ class Mp3Controller extends BaseController
      *      )
      * )
      */
-    public function destroy(Mp3 $mp3)
+    public function destroy($id)
     {
         //
-
-            if(!$mp3)
-            {
-                return $this->errorResponse("The mp3 does not exist",404);
-            }
+            $mp3 = Mp3::findOrFail($id);
+            
+            // if(!$mp3)
+            // {
+            //     return $this->errorResponse("The mp3 does not exist",404);
+            // }
 
             Storage::disk('s3')->delete('soundinsights_mp3/'.$mp3->tempname_song);
             Storage::disk('s3')->delete('soundinsights_images/'.$mp3->tempname_image);
