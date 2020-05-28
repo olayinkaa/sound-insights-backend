@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AboutUs;
 use Illuminate\Http\Request;
 use App\Http\Requests\AboutUsRequest;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Resources\AboutUsResource;
 
 class AboutUsController extends BaseController
@@ -32,14 +33,10 @@ class AboutUsController extends BaseController
     public function index()
     {
         //
-        $aboutus = AboutUs::all();
 
-        if(!$aboutus)
-        {
-            return $this->errorResponse("The about us content does not exist",404);
-        }
-
-
+        $aboutus = Cache::remember('aboutus',60,function(){
+            return AboutUs::all();
+        });
         return $this->sendResponse(AboutUsResource::collection($aboutus));
             
     }

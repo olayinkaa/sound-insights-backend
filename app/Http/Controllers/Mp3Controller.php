@@ -6,6 +6,7 @@ use App\Mp3;
 use Illuminate\Http\Request;
 use App\Http\Requests\Mp3Request;
 use App\Http\Resources\Mp3Resource;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class Mp3Controller extends BaseController
@@ -39,12 +40,11 @@ class Mp3Controller extends BaseController
     public function index()
     {
         //
-        $mp3 = Mp3::latest()->get();
-        $count = Mp3::latest()->get()->count();
+        // $mp3 = Mp3::latest()->get();
+        $mp3 = Cache::remember('mp3',3600,function(){
+            return Mp3::latest()->get();
+        });
 
-        // if($count==0){
-        //     return response()->json(['data'=>"No Record Found"],200);
-        // }
         return $this->sendResponse(Mp3Resource::collection($mp3));
     }
 
