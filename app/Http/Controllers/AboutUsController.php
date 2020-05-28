@@ -181,9 +181,10 @@ class AboutUsController extends BaseController
      *     @OA\Response(response="400", description="Bad Request")
      * )
      */
-    public function update(AboutUsRequest $request, AboutUs $aboutus)
+    public function update(AboutUsRequest $request,$id)
     {
         //
+        $aboutus = AboutUs::findOrFail($id);
         $aboutus->title = $request->title;
         $aboutus->description = $request->description;
         if($aboutus->isClean())
