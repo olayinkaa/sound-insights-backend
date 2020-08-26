@@ -69,7 +69,6 @@ class UserController extends BaseController
     {
 
         $url=config('custom.redirect');
-
         $user = User::where('verification_token',$token)->firstOrFail();
         $user->verified = User::VERIFIED_USER;
         $user->verification_token = null;
